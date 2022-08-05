@@ -32,17 +32,17 @@ pipeline {
     }
   }
   stages {  
-    /*stage('Build') {
+    stage('Build') {
       steps {
-        container('node') {
+        /*container('node') {
             sh 'ls -al'
             sh 'npm install'
-        }
-        //nodejs(nodeJSInstallationName: 'nodejs') {
-            //sh 'npm install -g typescript'
+        }*/
+        nodejs(nodeJSInstallationName: 'nodejs') {
+            sh 'npm install -g typescript'
         }
       }
-    }*/
+    }
     stage('download') {
         steps {
             git 'https://github.com/2206-devops-batch/e-commerce-frontend-blue.git'
@@ -53,14 +53,14 @@ pipeline {
             }
         }
     }
-    stage('Build') {
+    /*stage('Build') {
       steps {
         container('node') {
           sh 'ls -al'
           sh 'npm install'
         }
       }
-    }
+    }*/
     /*stage('SonarCloud analysis') {
         steps {       
             script {
