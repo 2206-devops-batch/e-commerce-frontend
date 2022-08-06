@@ -89,8 +89,10 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'username')]) {
             sh 'docker version'
             sh 'docker build -t othom/e-commerce-frontend-blue:latest .'
+            sh 'docker build -t othom/e-commerce-frontend-green:latest .'
             sh 'docker login -u ${username} -p ${password}'
             sh 'docker push othom/e-commerce-frontend-blue:latest'
+            sh 'docker push othom/e-commerce-frontend-green:latest'
             sh 'docker logout'
           }
         }
@@ -99,9 +101,10 @@ pipeline {
     stage('Deploy Image to AWS EKS cluster') {
       steps {
         container('kubectl') {
-               sh 'kubectl get pods --all-namespaces'
-             //sh 'kubectl apply -f frontendbluedeployment.yaml'    
-             //sh 'kubectl apply -f frontendblueservice.yaml'
+               //sh 'kubectl get pods --all-namespaces'
+             sh 'kubectl apply -f frontendbluedeployment.yaml'
+             sh 'kubectl apply -f frontendgreendeployment.yaml'
+             sh 'kubectl apply -f bluegreenfrontendservice.yaml'
          }
         /*container('docker') {
           //withKubeConfig([credentialsId: 'aws-cred']) {
