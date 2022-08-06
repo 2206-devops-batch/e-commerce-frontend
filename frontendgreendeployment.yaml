@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-green
+  labels:
+    app: frontend-green
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-green
+  template:
+    metadata:
+      labels:
+        app: frontend-green
+    spec:
+      containers:
+      - name: frontend-green
+        image: othom/e-commerce-frontend-green:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
