@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  name: bluegreen-frontend 
+  labels: 
+    name: bluegreen-frontend
+spec:
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 80
+  selector: 
+      app: frontend-blue
+  type: LoadBalancer
