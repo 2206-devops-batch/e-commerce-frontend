@@ -58,6 +58,7 @@ pipeline {
         container('node') {
           //sh 'ls -al'
           sh 'npm install'
+          sh 'npm run build'
         }
       }
     }
