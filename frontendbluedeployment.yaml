@@ -1,22 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: static-site-deployment
+  name: frontend-blue
   labels:
-    app: static-site
+    app: frontend-blue
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: static-site
+      app: frontend-blue
   template:
     metadata:
       labels:
-        app: static-site
+        app: frontend-blue
     spec:
       containers:
-      - name: static-site
-        image: othom/e-commerce-frontend-blue:153
+      - name: frontend-blue
+        image: othom/e-commerce-frontend-blue:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
+        
