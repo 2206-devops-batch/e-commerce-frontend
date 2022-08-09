@@ -31,7 +31,7 @@ pipeline {
         '''
     }
   }
-  stages {  
+  stages {
     /*stage('Build') {
       steps {
         /*container('node') {
@@ -49,7 +49,7 @@ pipeline {
             //echo 'Finshed downloading git'
             //force stop docker and clean up images
             container('docker') {
-                sh "docker system prune -af"
+          sh 'docker system prune -af'
             }
         }
     }
@@ -58,16 +58,16 @@ pipeline {
         container('node') {
           //sh 'ls -al'
           sh 'npm install'
-          //sh 'npm run build'
+        //sh 'npm run build'
         }
       }
     }
     /*stage('SonarCloud analysis') {
-        steps {       
+        steps {
             script {
-                nodejs(nodeJSInstallationName: 'nodejs'){             
-                    def scannerHome = tool 'sonar scanner';             
-                    withSonarQubeEnv('SonarCloud') { 
+                nodejs(nodeJSInstallationName: 'nodejs'){
+                    def scannerHome = tool 'sonar scanner';
+                    withSonarQubeEnv('SonarCloud') {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
@@ -88,33 +88,31 @@ pipeline {
         container('docker') {
           withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'username')]) {
             sh 'docker version'
-            sh 'docker build -t othom/e-commerce-frontend-blue:latest .'
+            sh 'docker build -t othom/e-commerce-frontend-blue:$BUILD_NUMBER .'
             sh 'docker build -t othom/e-commerce-frontend-green:latest .'
             sh 'docker login -u ${username} -p ${password}'
-            sh 'docker push othom/e-commerce-frontend-blue:latest'
+            sh 'docker push othom/e-commerce-frontend-blue:$BUILD_NUMBER'
             sh 'docker push othom/e-commerce-frontend-green:latest'
             sh 'docker logout'
           }
         }
       }
-    }    
+    }
     stage('Deploy Image to AWS EKS cluster') {
       steps {
         container('kubectl') {
-               //sh 'kubectl get pods --all-namespaces'
-             sh 'kubectl apply -f frontendbluedeployment.yaml'
-             sh 'kubectl apply -f frontendgreendeployment.yaml'
-             sh 'kubectl apply -f bluegreenfrontendservice.yaml'
-         }
+          //sh 'kubectl get pods --all-namespaces'
+          sh 'kubectl apply -f frontendbluedeployment.yaml'
+          sh 'kubectl apply -f frontendgreendeployment.yaml'
+          sh 'kubectl apply -f bluegreenfrontendservice.yaml'
+        }
         /*container('docker') {
-          //withKubeConfig([credentialsId: 'aws-cred']) {
+            //withKubeConfig([credentialsId: 'aws-cred']) {
             sh 'docker run --rm --name kubectl bitnami/kubectl:latest get pod'
-            
-          //}
-        }*/       
+        //}
+        }*/
       }
     }
-    
   }
     /*post {
         always {
@@ -123,5 +121,4 @@ pipeline {
           }
         }
     }*/
-    
 }

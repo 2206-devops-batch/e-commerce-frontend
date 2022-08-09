@@ -15,9 +15,8 @@ spec:
         app: frontend-blue
     spec:
       containers:
-      - name: frontend-blue
-        image: othom/e-commerce-frontend-blue:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 80
-        
+        - name: frontend-blue
+          image: othom/e-commerce-frontend-blue:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80

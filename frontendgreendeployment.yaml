@@ -15,8 +15,8 @@ spec:
         app: frontend-green
     spec:
       containers:
-      - name: frontend-green
-        image: othom/e-commerce-frontend-green:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 80
+        - name: frontend-green
+          image: othom/e-commerce-frontend-green:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
