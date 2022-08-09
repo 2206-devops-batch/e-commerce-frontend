@@ -1,7 +1,7 @@
 # Development Environment
 FROM node:18-bullseye-slim as build
-ENV PATH /app/node_modules/.bin:$PATH
 WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
 COPY . ./
 # RUN npm ci --silent
 RUN npm run build
