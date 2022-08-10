@@ -1,14 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: frontend-blue
   labels:
     app: frontend-blue
+
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: frontend-blue
+
   template:
     metadata:
       labels:
