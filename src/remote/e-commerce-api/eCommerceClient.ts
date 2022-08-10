@@ -8,7 +8,8 @@ const eCommerceClient = axios.create({
   baseURL: 'http://af8e437071b9d4a8e94eced60a43d6b6-1814642247.us-east-1.elb.amazonaws.com:5000',
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:3000',
+    // 'Access-Control-Allow-Origin': 'http://localhost:3000',
+    'Access-Control-Allow-Origin': '*',
   },
 })
 

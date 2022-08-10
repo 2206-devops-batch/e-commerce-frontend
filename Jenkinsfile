@@ -34,7 +34,7 @@ pipeline {
   stages {
     stage('Download') {
       steps {
-        git 'https://github.com/2206-devops-batch/e-commerce-frontend-blue.git'
+        git 'https://github.com/2206-devops-batch/e-commerce-frontend.git'
         container('docker') {
           sh 'docker system prune -af'
           sh 'docker version'
@@ -77,18 +77,21 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'username')]) {
             sh 'docker login -u ${username} -p ${password}'
 
-            // Version -- Frontend Docker Images -- Blue & Green -- Based on latest pipeline build
+            // Version -- Frontend Docker Images -- Blue -- Based on latest pipeline build
             sh 'docker build -t othom/e-commerce-frontend-blue:$BUILD_NUMBER .'
-            sh 'docker build -t othom/e-commerce-frontend-green:$BUILD_NUMBER .'
-            // Version -- Frontend Docker Images -- Blue & Green -- Latest Build
             sh 'docker build -t othom/e-commerce-frontend-blue:latest .'
-            sh 'docker build -t othom/e-commerce-frontend-green:latest .'
 
-            // Push All Recent Build
+            // Version -- Frontend Docker Images -- Green -- Latest Build
+            // sh 'docker build -t othom/e-commerce-frontend-green:$BUILD_NUMBER .'
+            // sh 'docker build -t othom/e-commerce-frontend-green:latest .'
+
+            // Push Blue Recent Build
             sh 'docker push othom/e-commerce-frontend-blue:$BUILD_NUMBER'
-            sh 'docker push othom/e-commerce-frontend-green:$BUILD_NUMBER'
             sh 'docker push othom/e-commerce-frontend-blue:latest'
-            sh 'docker push othom/e-commerce-frontend-green:latest'
+
+            // Push Green Recent Build
+            // sh 'docker push othom/e-commerce-frontend-green:$BUILD_NUMBER'
+            // sh 'docker push othom/e-commerce-frontend-green:latest'
 
             // Note these should really be broken up into separete branches pipelines but for demo sake we are running both off latest changes
             // Use Blue  as Stable  / Production Env. e.g. $BUILD_NUMBER 15 works but frontend cors issue with backend
