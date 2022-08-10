@@ -113,7 +113,7 @@ pipeline {
           // sh 'kubectl apply -f frontend-deployment-green.yaml'
 
           // Update Running Pod With Build
-          sh 'kubectl set image deployment/frontend-blue frontend-blue="othman/e-commerce-frontend-blue:$BUILD_NUMBER'
+          sh 'kubectl set image deployment/frontend-blue frontend-blue="othman/e-commerce-frontend-blue:$BUILD_NUMBER"'
         }
         // container('docker') {
         //   withKubeConfig([credentialsId: 'aws-cred']) {
