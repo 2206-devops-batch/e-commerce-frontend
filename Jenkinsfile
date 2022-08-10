@@ -103,23 +103,18 @@ pipeline {
     stage('Deploy Image To AWS EKS Cluster') {
       steps {
         container('kubectl') {
-          // sh 'kubectl get pods --all-namespaces'
+          sh 'kubectl get svc,deployments,pods --all-namespaces'
 
           // Start Service To Host Both Blue & Green Builds
-          // sh 'kubectl apply -f frontend-service.yaml'
+          sh 'kubectl apply -f frontend-service.yaml'
 
           // Deploy Blue (Stable) Build & Green (Dev) Build
-          // sh 'kubectl apply -f frontend-deployment-blue.yaml'
+          sh 'kubectl apply -f frontend-deployment-blue.yaml'
           // sh 'kubectl apply -f frontend-deployment-green.yaml'
 
           // Update Running Pod With Build
           sh 'kubectl set image deployment/frontend-blue frontend-blue="othman/e-commerce-frontend-blue:$BUILD_NUMBER"'
         }
-        // container('docker') {
-        //   withKubeConfig([credentialsId: 'aws-cred']) {
-        //     sh 'docker run --rm --name kubectl bitnami/kubectl:latest get pod'
-        //   }
-        // }
       }
     }
   }
