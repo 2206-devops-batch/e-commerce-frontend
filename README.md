@@ -1,5 +1,13 @@
 # The docker image is:
 
+Changed Repo Name use this to update your remote
+
+```sh
+git remote set-url origin https://github.com/2206-devops-batch/e-commerce-backend.git
+```
+
+---
+
 after installing docker run :
 
 docker run -d -p 3000:80 othom/e-commerce-frontend-blue:153
