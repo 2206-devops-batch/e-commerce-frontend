@@ -103,7 +103,6 @@ pipeline {
     stage('Deploy Image To AWS EKS Cluster') {
       steps {
         container('kubectl') {
-
           // Start Service To Host Both Blue & Green Builds
           sh 'kubectl apply -f frontend-service.yaml'
 
@@ -111,10 +110,11 @@ pipeline {
           sh 'kubectl apply -f frontend-deployment-blue.yaml'
           // sh 'kubectl apply -f frontend-deployment-green.yaml'
 
-          sh 'kubectl get svc,deployments,pods --all-namespaces'
           // Update Running Pod With Build
           sh 'kubectl set image deployment/frontend-blue frontend-blue="othom/e-commerce-frontend-blue:$BUILD_NUMBER"'
           // sh 'kubectl set image deployment/flask-deployment flaskapp="bryonsmith/flaskapp-demo:$VERSION"'
+
+          sh 'kubectl get svc,deployments,pods --all-namespaces'
         }
       }
     }
