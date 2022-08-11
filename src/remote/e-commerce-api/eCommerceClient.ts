@@ -4,7 +4,7 @@ import axios from 'axios'
 // Very simple, but it also doesn't give us much abstraction
 const eCommerceClient = axios.create({
   withCredentials: true,
-  baseURL: 'http://a541fc074149e4506816882a4c7ef8e6-623895046.us-east-1.elb.amazonaws.com:3000/',
+  baseURL: 'http://adebcf51e12fe4acc9f4deac43840e35-1727142081.us-east-1.elb.amazonaws.com:5000/',
   headers: {
     crossDomain: true,
     'Content-Type': 'application/json',
