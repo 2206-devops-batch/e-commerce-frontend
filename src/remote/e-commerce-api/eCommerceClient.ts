@@ -9,7 +9,7 @@ const eCommerceClient = axios.create({
     crossDomain: true,
     'Content-Type': 'application/json',
     'Access-Control-Allow-Methods': '*',
-    'Access-Control-Allow-Origin': 'http://a541fc074149e4506816882a4c7ef8e6-623895046.us-east-1.elb.amazonaws.com:3000/',
+    'Access-Control-Allow-Origin': 'http://a541fc074149e4506816882a4c7ef8e6-623895046.us-east-1.elb.amazonaws.com:3000',
   },
 })
 
